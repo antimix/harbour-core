@@ -1453,7 +1453,7 @@ mxml_load_data(
   while ((ch = (*getc_cb)(p, &encoding)) != EOF)
   {
     if ((ch == '<' ||
-         (mxml_isspace(ch) && type != MXML_OPAQUE && type != MXML_CUSTOM)) &&
+         (mxml_isspace(ch) && type != MXML_OPAQUE && type != MXML_CUSTOM  && type != MXML_TEXT)) &&
         bufptr > buffer)
     {
      /*
@@ -2039,7 +2039,7 @@ mxml_load_data(
       if (mxml_add_char(ch, &bufptr, &buffer, &bufsize))
 	goto error;
     }
-    else if (type == MXML_OPAQUE || type == MXML_CUSTOM || !mxml_isspace(ch))
+    else if (type == MXML_OPAQUE || type == MXML_CUSTOM ||( ( type == MXML_TEXT && !mxml_isspace(ch)) ||ch == ' ') || !mxml_isspace(ch)) 
     {
      /*
       * Add character to current buffer...
